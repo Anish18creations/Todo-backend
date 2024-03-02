@@ -172,7 +172,7 @@ router.put("/edituser", jwtverify, async (req, res) => {
         }
         
         else if(!req.body.name && !req.body.password)
-        res.json({message : "Please provide valid name and/or password!!" ,
+        res.json({message : "Please provide valid name and/or password to update!!" ,
         success : "false"
         });
         
