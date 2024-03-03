@@ -98,6 +98,30 @@ router.get("/todo-description/:todoId", async (req, res) => {
     }
 });
 
+router.get("/movetodonesection/:todoid" , async (req , res) => {
+    try {
+
+        const todoid = req.params.todoid;
+
+        const todoInfo = await Todo.findById(todoid);
+
+        //res.json(todoInfo);
+
+        todoInfo.checklists.map((task) => {
+            task.done = "true"
+        })
+
+        //res.json(todoInfo);
+
+        await todoInfo.save();
+
+        res.json({data : todoInfo});        
+    }
+    catch (error) {
+        console.log(error);
+    }
+})
+
 // edit/update card details route
 router.put("/edittodo/:todoid", jwtverify, async (req, res) => {
 
