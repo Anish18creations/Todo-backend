@@ -105,13 +105,9 @@ router.get("/movetodonesection/:todoid" , async (req , res) => {
 
         const todoInfo = await Todo.findById(todoid);
 
-        //res.json(todoInfo);
-
         todoInfo.checklists.map((task) => {
             task.done = "true"
         })
-
-        //res.json(todoInfo);
 
         await todoInfo.save();
 
