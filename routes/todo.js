@@ -204,21 +204,24 @@ router.put("/edittodo/:todoid", jwtverify, async (req, res) => {
 });
 
 // delete card route
-router.delete("/todo-delete/:todoId", async (req, res) => {
+router.get("/todo-delete/:todoId", async (req, res) => {
     try {
 
         const todoid = req.params.todoId;
 
-        if (!todoid) {
-             res.status(400).json({ message: "No such cards found to delete!!", success:"false"})
-        }
+        const exist = await Todo.findById({_id : todoid});
+
+        if (!exist) 
+            res.json({ message: "No such cards found to delete!!", success:"false2"});    
 
         await Todo.findByIdAndDelete({ _id: todoid });
 
-        res.json({ message: "Card deleted successfully" , success : "true" });
+        const jobDetails = await Todo.find();
+
+        res.json({ message: "Card deleted successfully!!" , success : "true" , data: jobDetails });
 
     } catch (error) {
-        res.status(400).json({ message : "No such cards found to delete!!", success:"false"})
+        res.status(400).json({ message : "No such cards found to delete!!", success:"false"});
     }
 });
 
