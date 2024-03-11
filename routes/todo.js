@@ -209,11 +209,6 @@ router.get("/todo-delete/:todoId", async (req, res) => {
 
         const todoid = req.params.todoId;
 
-        const exist = await Todo.findById({_id : todoid});
-
-        if (!exist) 
-            res.json({ message: "No such cards found to delete!!", success:"false2"});    
-
         await Todo.findByIdAndDelete({ _id: todoid });
 
         const jobDetails = await Todo.find();
