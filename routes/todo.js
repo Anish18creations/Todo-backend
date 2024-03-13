@@ -116,6 +116,24 @@ router.get("/movetodonesection/:todoid", async (req, res) => {
     }
 })
 
+router.put("/checkuncheck", async (req, res) => {
+    try {
+
+        const { todoid, subtaskid, value } = req.body;
+        const todoInfo = await Todo.findById(todoid);
+        todoInfo.checklists.map((item) => {
+            if (item._id == subtaskid)
+                item.done = value
+        });
+        await todoInfo.save();
+        res.json({ data: todoInfo });
+
+    }
+    catch (err) {
+        console.log(err);
+    }
+})
+
 // edit/update card details route
 router.put("/edittodo/:todoid", jwtverify, async (req, res) => {
 
