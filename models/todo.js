@@ -21,6 +21,9 @@ const todo = new mongoose.Schema({
         required : true,
     } ,
     checklists: [subSchema] ,
+    duedateunformatted : {
+        type : String
+    } ,
     duedate : {
         type : String
     }
